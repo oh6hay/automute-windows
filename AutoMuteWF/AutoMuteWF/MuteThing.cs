@@ -1,6 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
-
+﻿using System.Runtime.InteropServices;
 
 namespace AutoMuteWF
 {
@@ -31,25 +29,36 @@ namespace AutoMuteWF
 
     public class MuteThing
     {
-        static IAudioEndpointVolume Vol()
+        private static IAudioEndpointVolume Vol()
         {
             var enumerator = new MMDeviceEnumeratorComObject() as IMMDeviceEnumerator;
-            IMMDevice dev = null;
-            Marshal.ThrowExceptionForHR(enumerator.GetDefaultAudioEndpoint(/*eCapture*/ 1, /*eMultimedia*/ 1, out dev));
-            IAudioEndpointVolume epv = null;
+            
+            Marshal.ThrowExceptionForHR(enumerator.GetDefaultAudioEndpoint(/*eCapture*/ 1, /*eMultimedia*/ 1, out var dev));
+            
             var epvid = typeof(IAudioEndpointVolume).GUID;
-            Marshal.ThrowExceptionForHR(dev.Activate(ref epvid, /*CLSCTX_ALL*/ 23, 0, out epv));
+            Marshal.ThrowExceptionForHR(dev.Activate(ref epvid, /*CLSCTX_ALL*/ 23, 0, out var epv));
+            
             return epv;
         }
         public static float Volume
         {
-            get { float v = -1; Marshal.ThrowExceptionForHR(Vol().GetMasterVolumeLevelScalar(out v)); return v; }
-            set { Marshal.ThrowExceptionForHR(Vol().SetMasterVolumeLevelScalar(value, System.Guid.Empty)); }
+            get
+            {
+                Marshal.ThrowExceptionForHR(Vol().GetMasterVolumeLevelScalar(out var v));
+                return v; 
+            }
+
+            set => Marshal.ThrowExceptionForHR(Vol().SetMasterVolumeLevelScalar(value, System.Guid.Empty));
         }
         public static bool Mute
         {
-            get { bool mute; Marshal.ThrowExceptionForHR(Vol().GetMute(out mute)); return mute; }
-            set { Marshal.ThrowExceptionForHR(Vol().SetMute(value, System.Guid.Empty)); }
+            get
+            {
+                Marshal.ThrowExceptionForHR(Vol().GetMute(out var mute));
+                return mute;
+            }
+
+            set => Marshal.ThrowExceptionForHR(Vol().SetMute(value, System.Guid.Empty));
         }
     }
 }

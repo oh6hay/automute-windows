@@ -32,33 +32,49 @@ namespace AutoMuteWF
         private void InitializeComponent()
         {
             this.muteStatus = new System.Windows.Forms.Label();
+            this.ToggleBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // muteStatus
             // 
             this.muteStatus.AutoSize = true;
-            this.muteStatus.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.muteStatus.Location = new System.Drawing.Point(39, 9);
+            this.muteStatus.Location = new System.Drawing.Point(13, 9);
+            this.muteStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.muteStatus.Name = "muteStatus";
-            this.muteStatus.Size = new System.Drawing.Size(66, 23);
+            this.muteStatus.Size = new System.Drawing.Size(50, 16);
             this.muteStatus.TabIndex = 2;
             this.muteStatus.Text = "[status]";
             // 
+            // ToggleBox
+            // 
+            this.ToggleBox.Checked = true;
+            this.ToggleBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ToggleBox.Location = new System.Drawing.Point(13, 28);
+            this.ToggleBox.Name = "ToggleBox";
+            this.ToggleBox.Size = new System.Drawing.Size(210, 24);
+            this.ToggleBox.TabIndex = 3;
+            this.ToggleBox.Text = "Enable auto mute";
+            this.ToggleBox.UseVisualStyleBackColor = true;
+            this.ToggleBox.CheckedChanged += new System.EventHandler(this.checkBoxToggled);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(205, 41);
+            this.ClientSize = new System.Drawing.Size(325, 63);
+            this.Controls.Add(this.ToggleBox);
             this.Controls.Add(this.muteStatus);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Opacity = 0.8D;
             this.Text = "automute";
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
+
+        private System.Windows.Forms.CheckBox ToggleBox;
 
         #endregion
         private System.Windows.Forms.Label muteStatus;
