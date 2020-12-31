@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AutoMuteWF
@@ -19,20 +12,30 @@ namespace AutoMuteWF
         {
             InitializeComponent();
             keyboardHook = new KeyboardHook(muteHook);
-            keyboardHook.enableHook();
-            this.muteStatus.Text = "hooked";
+            keyboardHook.EnableHook();
+            muteStatus.Text = "hooked";
         }
 
         private void muteHook(bool muted)
         {
-            this.muteStatus.Text = muted ? "MUTED" : "unmuted";
+            muteStatus.Text = muted ? "MUTED" : "unmuted";
         }
 
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
             Console.WriteLine("closing");
-            keyboardHook.disableHook();
+            keyboardHook.DisableHook();
+        }
+
+        private void checkBoxToggled(object sender, EventArgs e)
+        {
+            keyboardHook.Enabled = ToggleBox.Checked;
+
+            if (!keyboardHook.Enabled)
+            {
+                MuteThing.Mute = false;
+            }
         }
     }
 }
