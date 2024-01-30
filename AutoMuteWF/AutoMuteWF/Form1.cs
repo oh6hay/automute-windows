@@ -6,7 +6,7 @@ namespace AutoMuteWF
     public partial class Form1 : Form
     {
         private KeyboardHook keyboardHook;
-        
+
 
         public Form1()
         {
@@ -18,7 +18,12 @@ namespace AutoMuteWF
 
         private void muteHook(bool muted)
         {
-            muteStatus.Text = muted ? "MUTED" : "unmuted";
+            if (muteStatus.InvokeRequired)
+            {
+                muteStatus.Invoke(new Action(() =>
+                            muteStatus.Text = muted ? "MUTED" : "unmuted"
+                ));
+            }
         }
 
         protected override void OnClosed(EventArgs e)
